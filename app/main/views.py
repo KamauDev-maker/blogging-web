@@ -1,8 +1,12 @@
 from flask import render_template,redirect,url_for,abort
+from ..models import User, Comment, Post, Subscribers
 from flask_login import login_required, current_user
 from . import main
 from . forms import PostForm, CommentForm, CategoryForm,UpdateProfile
 from ..requests import get_quote
+from ..email import welcome_message, notification_message
+
+
 
 @main.route('/')
 def index():
@@ -11,6 +15,13 @@ def index():
     all_posts = Post.query.order_by('id').all()
     quote = get_quote()
     print(all_posts)
+    
+    if request.method == "POST":
+        new_sub = Subscribers(email = request.form.get("subscriber"))
+        db.session.add(new_sub)
+        db.session.commit()
+        welcome_message("Thank you for subscribing to the Blog Post", 
+                        "email/welcome", new_sub.email)
     
     title = 'Blog Post'
     return render_template('index.html',all_posts= all_posts, categories = all_category, title=title,quote=quote)
@@ -28,6 +39,12 @@ def new_post(id):
         content = form.content.data
         new_post= Post(content=content, category_id = category.id, user_id = current_user.id)
         new_post.save_post()
+        
+        subs = Subscribers.query.all()
+        for sub in subs:
+            notification_message(post_title, 
+                            "email/notification", sub.email, new_post = new_post)
+            pass
         return redirect(url_for('.category', id=category.id))
 
     
@@ -111,6 +128,12 @@ def profile(uname):
 
     if user is None:
         abort(404)
+    if request.method == "POST":
+        new_sub = Subscribers(email = request.form.get("subscriber"))
+        db.session.add(new_sub)
+        db.session.commit()
+        welcome_message("Thank you for subscribing to the Blog Post ", 
+                        "email/welcome", new_sub.email)
 
     return render_template("profile/profile.html", user = user)
 
