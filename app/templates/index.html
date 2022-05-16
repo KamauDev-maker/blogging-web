@@ -1,0 +1,26 @@
+{% extends 'base.html'%} 
+{% import 'macros.html' as macro %} 
+
+{% block content%}
+<div class="container">
+  <div class="row home-posts">
+    <div class="col-md-3">
+      <h4 class="text-left">
+        <a class="btn btn-primary" href="/add/category">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add A Category </a>
+      </h4>
+      <ol class="category-list">
+        {{ macro.displayCategoryList(categories) }}
+      </ol>
+    </div>
+    <div class="col-md-9 all-posts">
+      <h2>All Posts</h2>
+      {{macro.displayAllPosts(all_posts)}}
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-10 mx-auto">
+    <div class="site-heading">
+      <span class="subheading"><i class="fas fa-quote-left"></i> <em>{{quote.quote}}</em> <i class="fas fa-quote-right"></i></span>
+      <h2>{{quote.author}}</h2>
+</div>
+{% endblock %}
