@@ -1,10 +1,10 @@
 from flask import render_template,redirect,url_for,abort
-from ..models import User, Comment, Post, Subscribers
+from ..models import User, Comments, Post, Subscribers,Votes
 from flask_login import login_required, current_user
 from . import main
 from . forms import PostForm, CommentForm, CategoryForm,UpdateProfile
 from ..requests import get_quote
-from ..email import welcome_message, notification_message
+# from ..email import welcome_message, notification_message
 
 
 
@@ -122,7 +122,7 @@ def delete_comment(id, comment_id):
 
 
 
-@main.route('/user/uname>')
+@main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
 

@@ -64,7 +64,7 @@ class PostCategory(db.Model):
   
 class Post(db.Model):
     
-    __tablename__ = 'pitches'
+    __tablename__ = 'posts'
 
     id = db.Column(db.Integer,primary_key = True)
     content = db.Column(db.String())
@@ -77,7 +77,7 @@ class Post(db.Model):
 
     def save_post(self):
         """
-        Save the pitches 
+        Save the posts
         """
         db.session.add(self)
         db.session.commit()
@@ -106,7 +106,7 @@ class Comments(db.Model):
 
      def save_comment(self):
         """
-        Save the Comments/comments per pitch
+        Save the Comments/comments per post
         """
         db.session.add(self)
         db.session.commit()
@@ -119,7 +119,7 @@ class Comments(db.Model):
 
      @classmethod
      def get_comments(self, id):
-        comment = Comments.query.order_by(Comments.time_posted.desc()).filter_by(postss_id=id).all()
+        comment = Comments.query.order_by(Comments.time_posted.desc()).filter_by(posts_id=id).all()
         return comment
 
 class Votes(db.Model):
@@ -131,7 +131,7 @@ class Votes(db.Model):
     id = db.Column(db. Integer, primary_key=True)
     vote = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    posts_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
 
     def save_vote(self):
         db.session.add(self)
@@ -139,11 +139,11 @@ class Votes(db.Model):
 
     @classmethod
     def get_votes(cls,user_id,pitches_id):
-        votes = Votes.query.filter_by(user_id=user_id, pitches_id=pitches_id).all()
+        votes = Votes.query.filter_by(user_id=user_id, posts_id=posts_id).all()
         return votes
 
     def __repr__(self):
-        return f'{self.vote}:{self.user_id}:{self.pitches_id}'   
+        return f'{self.vote}:{self.user_id}:{self.posts_id}'   
     
 class Quote:
     """
