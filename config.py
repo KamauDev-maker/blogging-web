@@ -13,19 +13,23 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     
-class ProdConfig(Config):
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
     
-    pass   
+class ProdConfig(Config):
+         SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    
+         DEBUG =True
+
  
 class DevConfig(Config):
-      SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://oscar:2021@localhost/blogpost'
+      
+      pass
+      
 
-      DEBUG = True
-class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://oscar:2021@localhost/blogpost_test'      
 
 config_options = {
     'production':ProdConfig,
-    'development':DevConfig,
-    'test':TestConfig
+    'development':DevConfig
+
 }       

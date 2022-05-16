@@ -28,7 +28,7 @@ def index():
     title = 'Blog Post'
     return render_template('index.html',all_posts= all_posts, categories = all_category, title=title,quote=quote)
 
-@main.route('/category/new-post/<int:id>',methods = ['POST','GET'])
+@main.route('/category/new-post/<int:id>',methods = ['GET','POST'])
 @login_required
 def new_post(id):
     form = PostForm()
@@ -174,7 +174,8 @@ def upvote(id,vote_type):
             print('YOU HAVE VOTED')
             break
     return redirect(url_for('.view_post', id=id))   
-    
+
+
 
     
     

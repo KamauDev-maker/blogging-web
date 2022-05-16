@@ -7,22 +7,22 @@ from ..models import User
 from ..email import mail_message
 
 
-@auth.route('templates/auth/reqister',methods=['GET','POST'])
-def register():
-    """
-    Function that registers the users
-    """
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data, password = form.password.data)
-        db.session.add(user)
-        db.session.commit()
+# @auth.route('templates/auth/reqister',methods=['GET','POST'])
+# def register():
+#     """
+#     Function that registers the users
+#     """
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         user = User(email = form.email.data, username = form.username.data, password = form.password.data)
+#         db.session.add(user)
+#         db.session.commit()
 
-        return redirect(url_for('auth.login'))
+#         return redirect(url_for('auth.login'))
 
-    title = "Registration"
+#     title = "Registration"
 
-    return render_template('auth/register.html', registration_form = form, title = title)
+#     return render_template('auth/register.html', registration_form = form, title = title)
 
 
 # Login function
@@ -40,7 +40,7 @@ def login():
 
         flash('Invalid Username or Password')
 
-    title = "60sec Pitch|Login"
+    title = "Blog Post|Login"
     return render_template('auth/login.html', login_form = login_form, title = title)
 @auth.route('/register',methods = ["GET","POST"])
 def register():
