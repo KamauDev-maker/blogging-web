@@ -18,9 +18,14 @@ class ProdConfig(Config):
     pass   
  
 class DevConfig(Config):
+      SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://oscar:2021@localhost/blogpost'
+
       DEBUG = True
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://oscar:2021@localhost/blogpost_test'      
 
 config_options = {
     'production':ProdConfig,
     'development':DevConfig,
+    'test':TestConfig
 }       
