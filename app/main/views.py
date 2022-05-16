@@ -2,8 +2,10 @@ from flask import render_template,redirect,url_for,abort,request
 from ..models import User, Comments, Post, Subscribers,Votes,PostCategory
 from flask_login import login_required, current_user
 from . import main
+from .. import db,photos
 from . forms import PostForm, CommentForm, CategoryForm,UpdateProfile
 from ..requests import get_quote
+
 # from ..email import welcome_message, notification_message
 
 
