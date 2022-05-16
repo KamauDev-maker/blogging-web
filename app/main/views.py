@@ -1,5 +1,5 @@
-from flask import render_template,redirect,url_for,abort
-from ..models import User, Comments, Post, Subscribers,Votes
+from flask import render_template,redirect,url_for,abort,request
+from ..models import User, Comments, Post, Subscribers,Votes,PostCategory
 from flask_login import login_required, current_user
 from . import main
 from . forms import PostForm, CommentForm, CategoryForm,UpdateProfile
@@ -101,7 +101,7 @@ def post_comment(id):
     title = 'post comment'
     posts = Post.query.filter_by(id=id).first()
     
-    if pitches is None:
+    if posts is None:
          abort(404)
 
     if form.validate_on_submit():

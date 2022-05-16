@@ -59,7 +59,7 @@ class PostCategory(db.Model):
 
     @classmethod
     def get_categories(cls):
-        categories = PitchCategory.query.all()
+        categories = PostCategory.query.all()
         return categories
   
 class Post(db.Model):

@@ -1,3 +1,3 @@
-export SECRET_KEY = 'abcd1234'
+export SECRET_KEY='987654321'
 
-python3.9 manager.py server
+python3.9 manage.py server

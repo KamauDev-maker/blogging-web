@@ -60,5 +60,7 @@
 {% macro displayCategory(category_list) %} 
 {% for category in category_list%}
 <a class="dropdown-item" href="{{url_for('.category',id=category.id)}}">{{category.name|upper}} </a>
+
+            
 {% endfor %} 
 {% endmacro %}
