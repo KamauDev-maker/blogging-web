@@ -1,4 +1,5 @@
 from flask import render_template,redirect,url_for,abort
+from flask_login import login_required, current_user
 from . import main
 from . forms import PostForm, CommentForm, CategoryForm,UpdateProfile
 from ..requests import get_quote
@@ -15,6 +16,7 @@ def index():
     return render_template('index.html',all_posts= all_posts, categories = all_category, title=title,quote=quote)
 
 @main.route('/category/new-post/<int:id>',methods = ['POST','GET'])
+@login_required
 def new_post(id):
     form = PostForm()
     category = PostCategory.query.filter_by(id=id).first()
@@ -42,7 +44,7 @@ def category(id):
     return render_template('category.html',posts = posts, category=category)
     
 @main.route('/add/category',methods = ['GET','POST'])
-
+@login_required
 def new_category():
     form = CategoryForm()
 
@@ -59,7 +61,8 @@ def new_category():
     return render_template('new_category.html',title = title, category_form = form)
 
 @main.route('/view-post/<int:id>',methods = ['GET','POST'])
-def view_pitch(id):
+@login_required
+def view_post(id):
     
     all_category = PostCategory.get_categories()
     posts = Post.query.get(id)
@@ -74,6 +77,7 @@ def view_pitch(id):
     
 
 @main.route('/write_comment/<int:id>', methods = ['GET','POST'])
+@login_required
 def post_comment(id):
     
     form = CommentForm()
