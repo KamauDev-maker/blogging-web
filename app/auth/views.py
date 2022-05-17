@@ -4,7 +4,6 @@ from .forms import RegistrationForm, LoginForm
 from . import auth
 from ..import db
 from ..models import User
-from ..email import mail_message
 
 
 @auth.route('templates/auth/reqister',methods=['GET','POST'])
@@ -24,6 +23,8 @@ def register():
 
     return render_template('auth/register.html', registration_form = form, title = title)
 
+
+# Login function
 @auth.route('/login',methods=['GET','POST'])
 def login():
     """
@@ -38,21 +39,9 @@ def login():
 
         flash('Invalid Username or Password')
 
-    title = "Blog Post|Login"
+    title = "60sec Pitch|Login"
     return render_template('auth/login.html', login_form = login_form, title = title)
-# @auth.route('/register',methods = ["GET","POST"])
-# def register():
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         user = User(email = form.email.data, username = form.username.data,password = form.password.data)
-#         db.session.add(user)
-#         db.session.commit()
 
-#         mail_message("Welcome to Blog Post","email/welcome_user",user.email,user=user)
-
-#         return redirect(url_for('auth.login'))
-#         title = "New Account"
-#     return render_template('auth/register.html',registration_form = form)
 
 #logout function
 @auth.route('/logout')
