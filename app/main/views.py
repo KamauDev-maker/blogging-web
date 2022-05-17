@@ -54,13 +54,12 @@ def new_post(id):
 
 @main.route('/categories/<int:id>')
 def category(id):
-    
-    category = PostCategory.query.filter_by(id)
+    category = PostCategory.query.get(id)
     if category is None:
         abort(404)
-    
-    posts = Post.get_posts(id)
-    return render_template('category.html',posts = posts, category=category)
+
+    posts=Pitch.get_posts(id)
+    return render_template('category.html', posts=posts, category=category)
     
 @main.route('/add/category',methods = ['GET','POST'])
 @login_required
