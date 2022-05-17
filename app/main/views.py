@@ -107,7 +107,7 @@ def post_comment(id):
 
     if form.validate_on_submit():
         opinion = form.opinion.data
-        new_comment = Comments(opinion = opinion, user_id = current_user.id, post_id = post.id)
+        new_comment = Comments(opinion = opinion, user_id = current_user.id, posts_id = posts.id)
         new_comment.save_comment()
         return redirect(url_for('.view_post', id = posts.id))
     
