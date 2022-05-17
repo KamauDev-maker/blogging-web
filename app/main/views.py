@@ -55,7 +55,7 @@ def new_post(id):
 @main.route('/categories/<int:id>')
 def category(id):
     
-    category = PostCategory.query.filter_by()
+    category = PostCategory.query.filter_by(id)
     if category is None:
         abort(404)
     
