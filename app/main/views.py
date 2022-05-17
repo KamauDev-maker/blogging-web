@@ -58,7 +58,7 @@ def category(id):
     if category is None:
         abort(404)
 
-    posts=Pitch.get_posts(id)
+    posts=Post.get_posts(id)
     return render_template('category.html', posts=posts, category=category)
     
 @main.route('/add/category',methods = ['GET','POST'])
